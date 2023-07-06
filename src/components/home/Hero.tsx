@@ -39,8 +39,8 @@ const Hero = () => {
             <Box
               as="h2"
               maxWidth="30rem"
-              fontSize={{ base: "xl", sm: "3xl" }}
-              lineHeight={{ base: "xl", sm: "3xl" }}
+              fontSize={{ base: "md", sm: "3md" }}
+              lineHeight={{ base: "md", sm: "3md" }}
             >
               <b>#1 Professional Headshot Generator</b> {// that perfectly capture{" "}
               }
@@ -49,12 +49,12 @@ const Hero = () => {
             </Box>
             <Box
               as="h3"
-              maxWidth="30rem"
-              fontSize={{ base: "xl", sm: "3xl" }}
-              lineHeight={{ base: "xl", sm: "3xl" }}
+              maxWidth="50rem"
+              fontSize={{ base: "sm", sm: "3sm" }}
+              lineHeight={{ base: "sm", sm: "3sm" }}
             >
-              <b>Get professional corporate headshots in less than 10 minutes</b> with our AI photographer!{" "}
-              <b>Upload 12 pictures and get 70 headshots in various styles in minutes!</b>
+              Get professional corporate headshots in less than 10 minutes with our AI photographer!{" "}
+              Upload 12 pictures and get 70 headshots in various styles in minutes!
             </Box>
           </Box>
           <Button

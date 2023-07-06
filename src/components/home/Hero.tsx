@@ -34,7 +34,7 @@ const Hero = () => {
               fontSize={{ base: "2.6rem", sm: "4rem" }}
               fontWeight="black"
             >
-              Your AI avatar generator
+              Professional Corporate Headshots
             </Box>
             <Box
               as="h2"
@@ -42,8 +42,19 @@ const Hero = () => {
               fontSize={{ base: "xl", sm: "3xl" }}
               lineHeight={{ base: "xl", sm: "3xl" }}
             >
-              <b>Generate avatars</b> that perfectly capture{" "}
-              <b>your unique style</b>
+              <b>#1 Professional Headshot Generator</b> {// that perfectly capture{" "}
+              }
+              {// <b>your unique style</b>
+              }
+            </Box>
+            <Box
+              as="h3"
+              maxWidth="30rem"
+              fontSize={{ base: "xl", sm: "3xl" }}
+              lineHeight={{ base: "xl", sm: "3xl" }}
+            >
+              <b>Get professional corporate headshots in less than 10 minutes</b> with our AI photographer!{" "}
+              <b>Upload 12 pictures and get 70 headshots in various styles in minutes!</b>
             </Box>
           </Box>
           <Button

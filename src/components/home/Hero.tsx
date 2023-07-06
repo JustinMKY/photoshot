@@ -30,8 +30,8 @@ const Hero = () => {
               mb={3}
               as="h1"
               maxWidth="43rem"
-              lineHeight={{ base: "2.6rem", sm: "4rem" }}
-              fontSize={{ base: "2.6rem", sm: "4rem" }}
+              lineHeight={{ base: "1.6rem", sm: "3rem" }}
+              fontSize={{ base: "1.6rem", sm: "3rem" }}
               fontWeight="black"
             >
               Professional Corporate Headshots
@@ -42,11 +42,9 @@ const Hero = () => {
               fontSize={{ base: "md", sm: "3md" }}
               lineHeight={{ base: "md", sm: "3md" }}
             >
-              <b>#1 Professional Headshot Generator</b> {// that perfectly capture{" "}
-              }
-              {// <b>your unique style</b>
-              }
+              <b>#1 Best Professional AI Headshot Generator</b> 
             </Box>
+            <br></br>
             <Box
               as="h3"
               maxWidth="50rem"

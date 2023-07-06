@@ -52,8 +52,8 @@ const Hero = () => {
               fontSize={{ base: "sm", sm: "3sm" }}
               lineHeight={{ base: "sm", sm: "3sm" }}
             >
-              <b>Get professional corporate headshots</b> in less than <b>10 minutes</b> with our AI photographer!{" "}
-              <b>Upload 12 pictures</b> and <b>get 70 headshots</b> in various styles in minutes!
+              Get professional corporate headshots in less than 10 minutes with our AI photographer!{" "}
+              Upload 12 pictures and get 70 headshots in various styles in minutes!
             </Box>
           </Box>
           <Button

@@ -1,5 +1,4 @@
 import { render } from "mjml-react";
-import nodemailer from "nodemailer";
 import { ReactElement } from "react";
 
 const nodemailer = require("nodemailer");

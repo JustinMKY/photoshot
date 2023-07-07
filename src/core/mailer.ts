@@ -1,3 +1,6 @@
+import { render } from "mjml-react";
+import { ReactElement } from "react";
+
 const nodemailer = require("nodemailer");
 
 export const EMAIL_SUBJECTS = {
@@ -26,7 +29,7 @@ export const sendEmail = async ({
   const mailData = {
     from: {
       name: "Photoshot Test",
-      address: process.env.EMAIL_USER,
+      address: process.env.EMAIL_FROM,
     },
     replyTo: "noreply@photoshot.app",
     to,
@@ -35,8 +38,12 @@ export const sendEmail = async ({
     html: component,
   };
 
-  const emailResult = await transporter.sendMail(mailData);
-
-  console.log(emailResult);
-  return emailResult;
+  try {
+    const info = await transporter.sendMail(mailData);
+    console.log(info);
+    return info;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };

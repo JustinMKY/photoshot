@@ -37,8 +37,8 @@ export const sendEmail = async ({
     html: component,
   };
 
-  await new Promise((resolve, reject) => {
-    transporter.sendMail(mailData, (err, info) => {
+  await new Promise<void>((resolve, reject) => {
+    transporter.sendMail(mailData, (err: any, info: any) => {
       if (err) {
         console.error(err);
         reject(err);

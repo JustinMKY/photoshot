@@ -28,7 +28,7 @@ export const sendEmail = async ({
   const mailData = {
     from: {
       name: "Photoshot Test",
-      address: process.env.EMAIL_USER,
+      address: process.env.EMAIL_FROM,
     },
     replyTo: "noreply@photoshot.app",
     to,

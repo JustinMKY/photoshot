@@ -1,53 +1,38 @@
-import { render } from "mjml-react";
-import { ReactElement } from "react";
+import { VercelRequest, VercelResponse } from "@vercel/node";
+import { createTransport, Transporter } from "nodemailer";
 
-const nodemailer = require("nodemailer");
+const transporter: Transporter = createTransport({
+  service: "SendGrid",
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
 
 export const EMAIL_SUBJECTS = {
   LOGIN: "Your Photoshot Login Link",
 };
 
-const transporter = nodemailer.createTransport({
-  port: process.env.EMAIL_PORT,
-  host: process.env.EMAIL_SERVER,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass:  process.env.EMAIL_PASSWORD,
-  },
-  secure: true,
-});
+export default async (req: VercelRequest, res: VercelResponse) => {
+  const { email, message } = req.body;
 
-export const sendEmail = async ({
-  to,
-  subject,
-  component,
-}: {
-  to: string;
-  subject: string;
-  component: string;
-}) => {
   const mailData = {
     from: {
-      name: "Photoshot Test",
-      address: process.env.EMAIL_FROM,
+      name: "Photoshot",
+      address: process.env.FROM_EMAIL,
     },
-    replyTo: "noreply@photoshot.app",
-    to,
-    subject,
-    text: component,
-    html: component,
+    replyTo: email,
+    to: process.env.TO_EMAIL,
+    subject: EMAIL_SUBJECTS.LOGIN,
+    text: message,
+    html: `<p>${message}</p>`,
   };
 
-  await new Promise<void>((resolve, reject) => {
-    transporter.sendMail(mailData, (err: any, info: any) => {
-      if (err) {
-        console.error(err);
-        reject(err);
-      } else {
-        console.log(info);
-        resolve(info);
-      }
-    });
-  });
+  try {
+    await transporter.sendMail(mailData);
+    res.status(200).json({ status: "OK" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
-

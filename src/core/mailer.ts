@@ -1,4 +1,5 @@
-
+import { render } from "mjml-react";
+import { ReactElement } from "react";
 
 const nodemailer = require("nodemailer");
 
@@ -11,7 +12,7 @@ const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SERVER,
   auth: {
     user: process.env.EMAIL_USER,
-    pass:  process.env.EMAIL_PASSWORD,
+    pass: process.env.EMAIL_PASSWORD,
   },
   secure: true,
 });
@@ -37,16 +38,12 @@ export const sendEmail = async ({
     html: component,
   };
 
-  await new Promise((resolve, reject) => {
-    transporter.sendMail(mailData, (err:any, info:any) => {
-      if (err) {
-        console.error(err);
-        reject(err);
-      } else {
-        console.log(info);
-        resolve(info);
-      }
-    });
-  });
+  try {
+    const info = await transporter.sendMail(mailData);
+    console.log(info);
+    return info;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
-

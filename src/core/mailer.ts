@@ -1,9 +1,6 @@
 import { render } from "mjml-react";
 import { ReactElement } from "react";
 
-import { render } from "mjml-react";
-import { ReactElement } from "react";
-
 const nodemailer = require("nodemailer");
 
 export const EMAIL_SUBJECTS = {

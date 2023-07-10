@@ -17,6 +17,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
+
 export const sendEmail = async ({
   to,
   subject,
@@ -28,22 +29,25 @@ export const sendEmail = async ({
 }) => {
   const mailData = {
     from: {
-      name: "Photoshot Test",
+      name: "Photoshot",
       address: process.env.EMAIL_FROM,
     },
-    replyTo: "noreply@photoshot.app",
+    replyTo: "no-reply@test.com",
     to,
     subject,
     text: component,
     html: component,
   };
 
-  try {
-    const info = await transporter.sendMail(mailData);
-    console.log(info);
-    return info;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  await new Promise<void>((resolve, reject) => {
+    await transporter.sendMail(mailData, (err: any, info: any) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve();
+      }
+    });
+  });
 };

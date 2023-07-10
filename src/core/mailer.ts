@@ -1,36 +1,21 @@
-import { render } from "mjml-react";
-import { ReactElement } from "react";
-
-const nodemailer = require("nodemailer");
+import sgMail from "@sendgrid/mail";
 
 export const EMAIL_SUBJECTS = {
   LOGIN: "Your Photoshot Login Link",
 };
 
-const transporter = nodemailer.createTransport({
-  port: process.env.EMAIL_PORT,
-  host: process.env.EMAIL_SERVER,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-  secure: true,
-});
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendMessage = async (message: string) => {
-  const mailData = {
-    from: {
-      name: "Photoshot",
-      address: process.env.EMAIL_FROM,
-    },
-    replyTo: "no-reply@test.com",
+  const msg = {
     to: process.env.TO_EMAIL,
+    from: process.env.FROM_EMAIL,
     subject: EMAIL_SUBJECTS.LOGIN,
     text: message,
     html: message,
   };
 
-  await transporter.sendMail(mailData);
+  await sgMail.send(msg);
 };
 
 export default async (req: any, res: any) => {

@@ -1,4 +1,5 @@
-import sgMail from "@sendgrid/mail";
+import sgMail, { MailDataRequired } from "@sendgrid/mail";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export const EMAIL_SUBJECTS = {
   LOGIN: "Your Photoshot Login Link",
@@ -7,9 +8,9 @@ export const EMAIL_SUBJECTS = {
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendMessage = async (message: string) => {
-  const msg = {
-    to: process.env.TO_EMAIL,
-    from: process.env.FROM_EMAIL,
+  const msg: MailDataRequired = {
+    to: process.env.TO_EMAIL!,
+    from: process.env.FROM_EMAIL!,
     subject: EMAIL_SUBJECTS.LOGIN,
     text: message,
     html: message,
@@ -18,7 +19,10 @@ const sendMessage = async (message: string) => {
   await sgMail.send(msg);
 };
 
-export default async (req: any, res: any) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { message } = req.body;
 
   try {
@@ -28,4 +32,4 @@ export default async (req: any, res: any) => {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-};
+}

@@ -1,6 +1,9 @@
 import { render } from "mjml-react";
 import { ReactElement } from "react";
 
+import { render } from "mjml-react";
+import { ReactElement } from "react";
+
 const nodemailer = require("nodemailer");
 
 export const EMAIL_SUBJECTS = {
@@ -17,37 +20,30 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
-
-export const sendEmail = async ({
-  to,
-  subject,
-  component,
-}: {
-  to: string;
-  subject: string;
-  component: string;
-}) => {
+const sendMessage = async (message: string) => {
   const mailData = {
     from: {
       name: "Photoshot",
       address: process.env.EMAIL_FROM,
     },
     replyTo: "no-reply@test.com",
-    to,
-    subject,
-    text: component,
-    html: component,
+    to: process.env.TO_EMAIL,
+    subject: EMAIL_SUBJECTS.LOGIN,
+    text: message,
+    html: message,
   };
 
-  await new Promise<void>((resolve, reject) => {
-    await transporter.sendMail(mailData, (err: any, info: any) => {
-      if (err) {
-        console.error(err);
-        reject(err);
-      } else {
-        console.log(info);
-        resolve();
-      }
-    });
-  });
+  await transporter.sendMail(mailData);
+};
+
+export default async (req: any, res: any) => {
+  const { message } = req.body;
+
+  try {
+    await sendMessage(message);
+    res.status(200).json({ status: "OK" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };

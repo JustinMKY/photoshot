@@ -1,4 +1,4 @@
-const sgMail = require("@sendgrid/mail");
+const sgMail = require("@sendgrid/mail")
 
 export const EMAIL_SUBJECTS = {
   LOGIN: "Your Photoshot Login Link",
@@ -6,7 +6,7 @@ export const EMAIL_SUBJECTS = {
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const sendMessage = async (message) => {
+const sendMessage = async (message: string) => {
   const msg = {
     to: process.env.TO_EMAIL,
     from: process.env.FROM_EMAIL,
@@ -15,15 +15,10 @@ const sendMessage = async (message) => {
     html: message,
   };
 
-  try {
-    await sgMail.send(msg);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  await sgMail.send(msg);
 };
 
-export default async (req, res) => {
+export default async (req: any, res: any) => {
   const { message } = req.body;
 
   try {

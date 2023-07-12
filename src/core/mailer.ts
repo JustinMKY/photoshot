@@ -1,12 +1,20 @@
 import { render } from "mjml-react";
 import nodemailer from "nodemailer";
+import Mail from "nodemailer/lib/mailer";
 import { ReactElement } from "react";
 
 export const EMAIL_SUBJECTS = {
   LOGIN: "Your Photoshot Login Link",
 };
 
-const transporter = nodemailer.createTransport(process.env.EMAIL_SERVER);
+const transporter = nodemailer.createTransport({
+  host: "smtp.mailgun.org",
+  port: 587,
+  auth: {
+    user: process.env.MAILGUN_USERNAME,
+    pass: process.env.MAILGUN_PASSWORD,
+  },
+});
 
 export const sendEmail = async ({
   to,
@@ -17,18 +25,14 @@ export const sendEmail = async ({
   subject: string;
   component: ReactElement;
 }) => {
-  console.log("Sending email to:", to); // Console log the recipient before sending
-
   const { html } = render(component);
 
-  console.log("Rendered email HTML:", html); // Console log the rendered HTML before sending
-
-  await transporter.sendMail({
+  const mailOptions: Mail.Options = {
     from: process.env.EMAIL_FROM,
     to,
     subject,
     html,
-  });
+  };
 
-  console.log("Email sent successfully"); // Console log after email is sent
+  await transporter.sendMail(mailOptions);
 };

@@ -8,10 +8,8 @@ export const authOptions: NextAuthOptions = {
   providers: [
     EmailProvider({
       server: {
-        // host: "smtp.mailgun.org",
-        // port: 587,
-        host: process.env.EMAIL_SERVER,
-        port: process.env.EMAIL_PORT,
+        host: "smtp.mailgun.org",
+        port: 587,
         auth: {
           user: process.env.MAILGUN_USERNAME,
           pass: process.env.MAILGUN_PASSWORD,

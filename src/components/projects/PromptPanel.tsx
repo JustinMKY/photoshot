@@ -57,9 +57,8 @@ const PromptPanel = ({
     );
 
   return (
-    <Flex
-      as="form"
-      flexDirection="column"
+    <form
+      className="bg-white rounded-md shadow-lg p-4 mb-4"
       onSubmit={(e) => {
         e.preventDefault();
         if (promptInputRef.current!.value) {
@@ -67,10 +66,6 @@ const PromptPanel = ({
           updateShotTemplate(undefined);
         }
       }}
-      borderRadius="xl"
-      p={{ base: 5, md: 7 }}
-      mb={10}
-      backgroundColor="white"
     >
       <Flex alignItems="center" justifyContent="space-between">
         <Text fontSize="2xl" fontWeight="semibold">
@@ -123,7 +118,7 @@ const PromptPanel = ({
           >
             <Image
               style={{ borderRadius: 5 }}
-              unoptimized
+              unoptimized={true}
               alt="prompt"
               src={promptImageUrl}
               width={48}
@@ -159,7 +154,7 @@ const PromptPanel = ({
               style={{ borderRadius: 5 }}
               placeholder="blur"
               blurDataURL={shotTemplate.blurhash || "placeholder"}
-              unoptimized
+              unoptimized={true}
               alt={shotTemplate.prompt}
               src={shotTemplate.outputUrl!}
               width={48}
@@ -204,7 +199,7 @@ const PromptPanel = ({
           {shotCredits === 0 ? "No more shot" : "Shoot"}
         </Button>
       </Flex>
-    </Flex>
+    </form>
   );
 };
 

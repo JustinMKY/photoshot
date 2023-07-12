@@ -15,12 +15,12 @@ export const description =
   "Our free AI prompt covers a wide range of themes and topics to help you create a unique avatar. Use theme with our Studio or your Stable Diffusion or Dreambooth models.";
 
 const Prompts = () => {
-  const [character, setCharacter] = useState<TCharacter>("romy");
+  const [character, setCharacter] = useState<TCharacter>("girl");
 
   return (
     <PageContainer>
       <Head>
-        <title>{title} - Photoshot</title>
+        <title>{title} - AIvatar</title>
         <meta name="description" content={description} />
       </Head>
       <VStack

@@ -1,4 +1,4 @@
-import db from "@/core/db";
+import db from "../../../../core/db";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import replicateClient from "@/core/clients/replicate";
@@ -35,7 +35,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         learning_rate: 1e-6,
       },
       model: `${process.env.REPLICATE_USERNAME}/${project.id}`,
-      webhook_completed: `${process.env.NEXTAUTH_URL}/api/webhooks/completed`,
+      webhook_completed: `${process.env.NEXTAUTH_URL}/api/webhooks/completed/${project.id}`,
     },
     {
       headers: {

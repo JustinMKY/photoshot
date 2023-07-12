@@ -21,7 +21,7 @@ import PromptWizardPanel from "./PromptWizardPanel";
 
 const PromptsDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { promptInputRef } = useProjectContext();
+  const { promptInputRef, setPromptImageUrl, project } = useProjectContext();
 
   return (
     <>
@@ -64,14 +64,15 @@ const PromptsDrawer = () => {
                       <Image
                         onClick={() => {
                           promptInputRef.current!.value = prompt.prompt;
+                          setPromptImageUrl(project.instanceClass ? project.instanceClass === 'woman' ? prompt.womanImg : prompt.manImg : '');
                           onClose();
                         }}
                         style={{ borderRadius: 10 }}
-                        src={`/prompts/sacha/${prompt.slug}.png`}
+                        src={`/prompts/guy/${prompt.slug}.jpg`}
                         alt={prompt.label}
                         width="400"
                         height="400"
-                        unoptimized
+                        unoptimized={true}
                       />
                       <Text
                         textTransform="capitalize"

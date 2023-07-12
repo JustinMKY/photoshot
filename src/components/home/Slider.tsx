@@ -1,7 +1,7 @@
 import React from "react";
+import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import { Box, Flex } from "@chakra-ui/react";
-import "keen-slider/keen-slider.min.css";
 import { prompts } from "@/core/utils/prompts";
 import Image from "next/image";
 import Link from "next/link";
@@ -65,9 +65,9 @@ const Slider = () => {
   );
 
   return (
-    <Flex overflowX="hidden" my={5} ref={sliderRef}>
+    <Flex className="px-4 sm:px-6 lg:px-8" overflowX="hidden" my={5} ref={sliderRef}>
       {prompts.map((prompt) =>
-        ["romy", "sacha"].map((name) => (
+        ["girl", "guy", "larry"].map((name) => (
           <Box
             transition="200ms all"
             _hover={{ filter: "contrast(140%)" }}
@@ -77,11 +77,10 @@ const Slider = () => {
             <Link href={`/prompts/dreambooth/${prompt.slug}`}>
               <Image
                 style={{ borderRadius: 10 }}
-                src={`/prompts/${name}/${prompt.slug}.png`}
+                src={`/prompts/${name}/${prompt.slug}.jpg`}
                 alt={prompt.label}
-                width="400"
-                height="400"
-                unoptimized
+                width={160}
+                height={160}
               />
             </Link>
           </Box>

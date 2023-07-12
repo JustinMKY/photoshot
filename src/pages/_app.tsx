@@ -9,7 +9,7 @@ import { Inter } from "@next/font/google";
 import theme from "@/styles/theme";
 import { Analytics } from "@vercel/analytics/react";
 import DefaultHead from "@/components/layout/DefaultHead";
-
+import '../globals.css'
 import "react-medium-image-zoom/dist/styles.css";
 
 const queryClient = new QueryClient();

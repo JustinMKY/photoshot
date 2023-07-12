@@ -1,37 +1,34 @@
-const sgMail = require("@sendgrid/mail")
+import { render } from "mjml-react";
+import nodemailer from "nodemailer";
+import { ReactElement } from "react";
 
 export const EMAIL_SUBJECTS = {
   LOGIN: "Your Photoshot Login Link",
 };
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const transporter = nodemailer.createTransport(process.env.EMAIL_SERVER);
 
-const sendMessage = async (message: string) => {
-  const msg = {
-    to: process.env.TO_EMAIL,
-    from: process.env.FROM_EMAIL,
-    subject: EMAIL_SUBJECTS.LOGIN,
-    text: message,
-    html: message,
-  };
+export const sendEmail = async ({
+  to,
+  subject,
+  component,
+}: {
+  to: string;
+  subject: string;
+  component: ReactElement;
+}) => {
+  console.log("Sending email to:", to); // Console log the recipient before sending
 
-  console.log("Sending message:", msg); // Console log the message object before sending
+  const { html } = render(component);
 
-  await sgMail.send(msg);
-  console.log("Message sent successfully"); // Console log after sending
-};
+  console.log("Rendered email HTML:", html); // Console log the rendered HTML before sending
 
-export default async (req: any, res: any) => {
-  const { message } = req.body;
+  await transporter.sendMail({
+    from: process.env.EMAIL_FROM,
+    to,
+    subject,
+    html,
+  });
 
-  console.log("Received request with message:", message); // Console log the received message
-
-  try {
-    await sendMessage(message);
-    console.log("Email sent successfully"); // Console log after email is sent
-    res.status(200).json({ status: "OK" });
-  } catch (error) {
-    console.error("Error sending email:", error); // Console log the error if sending fails
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+  console.log("Email sent successfully"); // Console log after email is sent
 };

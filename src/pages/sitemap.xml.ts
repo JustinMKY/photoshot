@@ -8,25 +8,25 @@ function generateSiteMap(prompts: TPrompt[]) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <url>
-       <loc>https://aivatar.studio</loc>
+       <loc>https://photoshot.app</loc>
      </url>
      <url>
-       <loc>https://aivatar.studio/terms</loc>
+       <loc>https://photoshot.app/terms</loc>
      </url>
       <url>
-       <loc>https://aivatar.studio/faq</loc>
+       <loc>https://photoshot.app/faq</loc>
      </url>
      <url>
-       <loc>https://aivatar.studio/prompts</loc>
+       <loc>https://photoshot.app/prompts</loc>
      </url>
      <url>
-       <loc>https://aivatar.studio/how-it-works</loc>
+       <loc>https://photoshot.app/how-it-works</loc>
      </url>
      ${prompts
        .map(({ slug }) => {
          return `
        <url>
-           <loc>https://aivatar.studio/prompts/dreambooth/${slug}</loc>
+           <loc>https://photoshot.app/prompts/dreambooth/${slug}</loc>
        </url>
      `;
        })

@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import { ReactElement } from "react";
 
 export const EMAIL_SUBJECTS = {
-  LOGIN: "Your AIvatar Login Link",
+  LOGIN: "Your Photoshot Login Link",
 };
 
 const transporter = nodemailer.createTransport(process.env.EMAIL_SERVER);

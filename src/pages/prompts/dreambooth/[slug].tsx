@@ -32,7 +32,7 @@ const PromptPage = ({
   return (
     <PageContainer>
       <Head>
-        <title>{`Free prompt ${prompt.label} - AIvatar`}</title>
+        <title>{`Free prompt ${prompt.label} - Photoshot`}</title>
         <meta name="description" content={description} key="description" />
       </Head>
       <Box mb={4}>
@@ -79,8 +79,8 @@ const PromptPage = ({
             flexDirection={{ base: "column", md: "row" }}
             gap={4}
           >
-            <TiltImage size="100%" character="girl" slug={prompt.slug} />
-            <TiltImage size="100%" character="guy" slug={prompt.slug} />
+            <TiltImage size="100%" character="romy" slug={prompt.slug} />
+            <TiltImage size="100%" character="sacha" slug={prompt.slug} />
           </Flex>
           <VStack flex="1" spacing={5}>
             <Text fontFamily="mono">{prompt.prompt}</Text>
@@ -118,7 +118,7 @@ const PromptPage = ({
               <VStack p={2} spacing={1} alignItems="flex-start">
                 <TiltImage
                   size="100%"
-                  character={i % 2 ? "guy" : "girl"}
+                  character={i % 2 ? "sacha" : "romy"}
                   slug={prompt.slug}
                 />
                 <Text

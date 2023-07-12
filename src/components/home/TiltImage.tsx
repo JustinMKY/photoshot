@@ -19,7 +19,7 @@ const TiltImage = ({
     <Tilt
       glareEnable
       glareMaxOpacity={0.4}
-      glareColor="rgb(168 85 247)"
+      glareColor="#B5FFD9"
       glarePosition="all"
       glareBorderRadius="10px"
       tiltMaxAngleX={10}
@@ -28,11 +28,11 @@ const TiltImage = ({
     >
       <Image
         style={{ borderRadius: 10 }}
-        src={`/prompts/${character}/${slug}.jpg`}
+        src={`/prompts/${character}/${slug}.png`}
         alt={slug}
         width="512"
         height="512"
-        unoptimized={true}
+        unoptimized
       />
     </Tilt>
   </Box>

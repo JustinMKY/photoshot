@@ -54,17 +54,21 @@ export default function Footer() {
           <Text fontSize="sm">
             <Link href="/faq">FAQ</Link>
           </Text>
-          {/* <SocialButton href="https://github.com/shinework/AIvatar">
+          <SocialButton href="https://github.com/shinework/photoshot">
             <FaGithub />
-          </SocialButton> */}
-          {/* <SocialButton href="https://twitter.com/AIvatar_ai">
+          </SocialButton>
+          <SocialButton href="https://twitter.com/photoshot_ai">
             <FaTwitter />
-          </SocialButton> */}
-          <SocialButton href="mailto:hello@aivatar.studio">
+          </SocialButton>
+          <SocialButton href="mailto:support@photoshot.app">
             <MdAlternateEmail />
           </SocialButton>
-          <Text fontSize="lg" fontWeight="bold">
-            AIvatar
+          <Text
+            display={{ base: "none", sm: "block" }}
+            fontSize="lg"
+            fontWeight="bold"
+          >
+            Photoshot.
           </Text>
         </Stack>
       </Container>

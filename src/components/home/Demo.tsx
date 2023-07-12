@@ -1,6 +1,5 @@
 import { prompts } from "@/core/utils/prompts";
-import { Box, Flex } from "@chakra-ui/react";
-import Image from "next/image";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Pause, WindupChildren } from "windups";
@@ -13,13 +12,22 @@ const MotionBox = motion(Box);
 const Demo = () => {
   const [step, setStep] = useState(0);
   const prompt = prompts[step];
-  const names = ["girl", "guy"] as const;
+  const names = ["romy", "sacha"] as const;
   const index = Math.random() >= 0.5 ? 1 : 0;
 
   return (
-    <div className="sm:px-12">
-      <div
-        className="flex rounded-md ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md px-4 py-2 bg-white shadow-xl mb-8"
+    <Box ml={{ base: 0, lg: 10 }} width="100%">
+      <Box
+        width="100%"
+        marginX="auto"
+        fontSize="md"
+        shadow="0 14px 40px 10px #B5FFD9, 0 5px 10px -7px black"
+        borderRadius="md"
+        py={2}
+        px={3}
+        backgroundColor="white"
+        borderWidth={1}
+        borderColor="gray.200"
       >
         <WindupChildren
           onFinished={() => {
@@ -40,11 +48,11 @@ const Demo = () => {
           exit={{ opacity: 1 }}
           transition={{ repeat: Infinity, duration: 1.4 }}
         />
-      </div>
-      <div className="flex space-x-32">
-        <div>
+      </Box>
+      <Flex justifyContent="space-between" mt={6} pr={6}>
+        <Box width="100%" position="relative" ml={10}>
           <AvatarsPlaceholder character={names[index]} />
-        </div>
+        </Box>
         <AnimatePresence mode="wait">
           <MotionImage
             key={prompt.label}
@@ -52,18 +60,19 @@ const Demo = () => {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 30, opacity: 0 }}
             transition={{ delay: 0.2 }}
-            className="rounded-3xl shadow-xl z-10"
-            width={224}
-            height={224}
-            loading="eager"
+            shadow="2xl"
+            borderRadius="3xl"
+            width="14rem"
+            height="14rem"
+            zIndex={10}
             alt={prompt.label}
             src={`/prompts/${names[index]}/${urlSlug(prompt.label, {
               separator: "-",
-            })}.jpg`}
+            })}.png`}
           />
         </AnimatePresence>
-      </div>
-    </div>
+      </Flex>
+    </Box>
   );
 };
 

@@ -26,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         modelStatus: "not_created",
         instanceClass: instanceClass || "person",
         instanceName: process.env.NEXT_PUBLIC_REPLICATE_INSTANCE_TOKEN!,
-        credits: Number(process.env.NEXT_PUBLIC_STUDIO_SHOT_AMOUNT) || 10,
+        credits: Number(process.env.NEXT_PUBLIC_STUDIO_SHOT_AMOUNT) || 50,
       },
     });
 
@@ -34,7 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await s3Client.send(
       new PutObjectCommand({
-        Bucket: process.env.S3_UPLOAD_BUCKET,
+        Bucket: process.env.S3_UPLOAD_BUCKET!,
         Key: `${project.id}.zip`,
         Body: buffer,
       })
@@ -55,7 +55,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const { data } = await replicateClient.get(
           `/v1/trainings/${project.replicateModelId}`
         );
-        
+
         await db.project.update({
           where: { id: project.id },
           data: { modelVersionId: data.version, modelStatus: data?.status },

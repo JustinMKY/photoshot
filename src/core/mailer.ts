@@ -1,13 +1,19 @@
 import { render } from "mjml-react";
-import nodemailer from "nodemailer";
-import Mail from "nodemailer/lib/mailer";
+import nodemailer, { Transporter } from "nodemailer";
 import { ReactElement } from "react";
 
 export const EMAIL_SUBJECTS = {
   LOGIN: "Your Photoshot Login Link",
 };
 
-const transporter = nodemailer.createTransport({
+interface MailOptions {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+}
+
+const transporter: Transporter = nodemailer.createTransport({
   host: "smtp.mailgun.org",
   port: 587,
   auth: {
@@ -27,7 +33,7 @@ export const sendEmail = async ({
 }) => {
   const { html } = render(component);
 
-  const mailOptions: Mail.Options = {
+  const mailOptions: MailOptions = {
     from: process.env.EMAIL_FROM,
     to,
     subject,

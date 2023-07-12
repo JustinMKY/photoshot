@@ -1,13 +1,20 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
-import db from "@/core/db";
+import nodemailer from "nodemailer";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   providers: [
     EmailProvider({
-      server: process.env.EMAIL_SERVER,
+      server: {
+        host: "smtp.mailgun.org",
+        port: 587,
+        auth: {
+          user: process.env.MAILGUN_USERNAME,
+          pass: process.env.MAILGUN_PASSWORD,
+        },
+      },
       from: process.env.EMAIL_FROM,
     }),
   ],

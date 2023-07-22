@@ -1,20 +1,10 @@
 import { render } from "mjml-react";
-import nodemailer from "nodemailer";
-import Mail from "nodemailer/lib/mailer";
 import { ReactElement } from "react";
+import { Resend, SendEmailOptions } from 'resend'; // Make sure to import the correct types from 'resend'
 
 export const EMAIL_SUBJECTS = {
   LOGIN: "Your Photoshot Login Link",
 };
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.mailgun.org",
-  port: 587,
-  auth: {
-    user: process.env.MAILGUN_USERNAME,
-    pass: process.env.MAILGUN_PASSWORD,
-  },
-});
 
 export const sendEmail = async ({
   to,
@@ -27,12 +17,15 @@ export const sendEmail = async ({
 }) => {
   const { html } = render(component);
 
-  const mailOptions: Mail.Options = {
-    from: process.env.EMAIL_FROM,
+  // Use the Resend library for sending emails
+  const resend = new Resend(process.env.RESEND_KEY);
+
+  const emailOptions: SendEmailOptions = {
+    from: 'onboarding@resend.dev', // You can set the desired "from" address here
     to,
     subject,
     html,
   };
 
-  await transporter.sendMail(mailOptions);
+  await resend.emails.send(emailOptions);
 };

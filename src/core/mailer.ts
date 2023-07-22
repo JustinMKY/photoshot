@@ -1,6 +1,13 @@
 import { render } from "mjml-react";
 import { ReactElement } from "react";
-import { Resend, SendEmailOptions } from 'resend'; // Make sure to import the correct types from 'resend'
+import { Resend } from 'resend'; // Make sure to import the correct types from 'resend'
+
+interface CustomEmailOptions {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+}
 
 export const EMAIL_SUBJECTS = {
   LOGIN: "Your Photoshot Login Link",
@@ -20,7 +27,7 @@ export const sendEmail = async ({
   // Use the Resend library for sending emails
   const resend = new Resend(process.env.RESEND_KEY);
 
-  const emailOptions: SendEmailOptions = {
+  const emailOptions: CustomEmailOptions = {
     from: 'onboarding@resend.dev', // You can set the desired "from" address here
     to,
     subject,

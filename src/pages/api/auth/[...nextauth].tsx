@@ -1,22 +1,32 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth, { NextAuthOptions } from "next-auth";
-import EmailProvider from "next-auth/providers/email";
-import nodemailer from "nodemailer";
+import { Resend, SendEmailOptions } from 'resend'; // Make sure to import the correct types from 'resend'
 import db from "@/core/db";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   providers: [
     EmailProvider({
-      server: {
-        host: "smtp.mailgun.org",
-        port: 587,
-        auth: {
-          user: process.env.MAILGUN_USERNAME,
-          pass: process.env.MAILGUN_PASSWORD,
-        },
+      // Remove the nodemailer configuration since we won't use it
+      sendVerificationRequest: async ({
+        identifier: email,
+        url,
+        token,
+        baseUrl,
+        provider,
+      }) => {
+        // Use the Resend library to send the verification email
+        const resend = new Resend(process.env.RESEND_KEY);
+
+        const emailOptions: SendEmailOptions = {
+          from: 'onboarding@resend.dev', // You can set the desired "from" address here
+          to: email,
+          subject: 'Sign in to your account',
+          html: `<p>Click <a href="${url}">here</a> to sign in.</p>`,
+        };
+
+        await resend.emails.send(emailOptions);
       },
-      from: process.env.EMAIL_FROM,
     }),
   ],
   callbacks: {

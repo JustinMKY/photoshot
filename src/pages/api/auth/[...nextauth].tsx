@@ -9,7 +9,7 @@ export const authOptions: NextAuthOptions = {
   providers: [
     EmailProvider({
       server: {
-        host: "smtp.mailgun.org",
+        host: "smtp-relay.sendinblue.com",
         port: 587,
         auth: {
           user: process.env.MAILGUN_USERNAME,
